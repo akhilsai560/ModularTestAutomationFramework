@@ -1,0 +1,33 @@
+<extentreports>
+  <configuration>
+    <theme>standard</theme>
+    <encoding>UTF-8</encoding>
+    <protocol>https</protocol>
+    <documentTitle>Automation Test Report</documentTitle>
+    <reportName>NBA Product Test Automation</reportName>
+    <offlineMode>true</offlineMode>
+    <timelineEnabled>true</timelineEnabled>
+
+    <styles>
+<![CDATA[
+  .step.pass-bg,
+  .step.fail-bg,
+  .step.skip-bg {
+    background-color: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .badge.log {
+    background-color: #ddd !important;
+    color: #000 !important;
+  }
+
+  .test-content .step {
+    border-left: 4px solid #ccc;
+    padding-left: 12px;
+    margin-bottom: 10px;
+  }
+]]>
+</styles>
+  </configuration>
+</extentreports>

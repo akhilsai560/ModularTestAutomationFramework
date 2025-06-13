@@ -1,0 +1,25 @@
+
+<suite name="NBA Test Suite" verbose="1" parallel="false">
+  
+  <test name="Core Product Tests">
+    <parameter name="cucumber.filter.tags" value="@cp" />
+    <classes>
+      <class name="coreproduct.runner.CoreProductRunnerTest" />
+    </classes>
+  </test>
+
+  <test name="Derived Product 1 Tests">
+    <parameter name="cucumber.filter.tags" value="@dp1" />
+    <classes>
+      <class name="derivedProductOne.runner.DerivedProductOneRunnerTest" />
+    </classes>
+  </test>
+
+  <test name="Derived Product 2 Tests">
+    <parameter name="cucumber.filter.tags" value="@dp2" />
+    <classes>
+      <class name="derivedProductTwo.runner.DerivedProductTwoRunnerTest" />
+    </classes>
+  </test>
+
+</suite>
