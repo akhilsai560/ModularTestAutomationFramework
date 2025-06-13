@@ -155,6 +155,9 @@ mvn test -Dsurefire.suiteXmlFiles=testng.xml
 
 * **Screenshots:**
   Automatically saved per step inside `reports/screenshots/`
+  
+* **Output Files:**
+  For any Test Case Output File Folder for csv/txt - `reports/`
 
 * Custom logging and screenshots embedded using **ExtentReports**
 
