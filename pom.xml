@@ -4,8 +4,8 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.veeva.automation</groupId>
-	<artifactId>Assessment</artifactId>
+	<groupId>com.nba.automation</groupId>
+	<artifactId>TestAutomationFramework</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
