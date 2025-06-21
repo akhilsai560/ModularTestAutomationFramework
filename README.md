@@ -21,7 +21,7 @@ ModularTestAutomationFramework/
 │   ├── driver/                 # DriverManager using ThreadLocal
 │   ├── report/                 # ExtentReports wrapper
 │   ├── utils/                  # CSV export, JSON parsing etc.
-│   └── base/                   # BaseClass with driver & reporting access
+│   └── context/                # TestContext with driver & reporting access and sharedData
 │
 ├── core-product-tests/        # Tests for Core Product site
 │   ├── src/
@@ -92,8 +92,8 @@ ModularTestAutomationFramework/
 
 ```bash
 mvn clean install -DskipTests=false
-mvn test                            # Run all tests
-mvn test -Dcucumber.filter.tags="@dp1"   # Run tag-based tests
+mvn test -Dcucumber.filter.tags="@nba"   # Run all tests
+mvn test -Dcucumber.filter.tags="@dp1"   # Run specific tests
 ```
 
 ### ▶️ Via TestNG XML 
@@ -104,21 +104,21 @@ Update and use the `testng.xml` in the root folder on need basis:
 
 <suite name="NBA Test Suite" verbose="1" parallel="false">
   
-  <test name="Core Product Tests">
+  <test name="CoreProductTests">
     <parameter name="cucumber.filter.tags" value="@cp" />
     <classes>
       <class name="coreproduct.runner.CoreProductRunnerTest" />
     </classes>
   </test>
 
-  <test name="Derived Product 1 Tests">
+  <test name="DerivedProduct1Tests">
     <parameter name="cucumber.filter.tags" value="@dp1" />
     <classes>
       <class name="derivedProductOne.runner.DerivedProductOneRunnerTest" />
     </classes>
   </test>
 
-  <test name="Derived Product 2 Tests">
+  <test name="DerivedProduct2Tests">
     <parameter name="cucumber.filter.tags" value="@dp2" />
     <classes>
       <class name="derivedProductTwo.runner.DerivedProductTwoRunnerTest" />
@@ -139,6 +139,7 @@ mvn test -Dsurefire.suiteXmlFiles=testng.xml
 
 ## 🏷️ Tag Usage
 
+* `@nba` - Complete Project
 * `@cp` - Core Product Feature level
 * `@cp1`, `@cp2` - Core Product Test Cases
 * `@dp1`, `@dp2` - Derived Product 1 & 2 respectively
@@ -190,7 +191,6 @@ mvn test -Dsurefire.suiteXmlFiles=testng.xml
 
 ## 🧹 Maintenance Tips
 
-* Keep `PageFactory.initElements()` in StepDefs only (not inside Page constructors)
 * Use `@BeforeAll` in Hooks to clean `screenshots/`
 * Tag-based execution ensures modular test runs
 * Keep reports and screenshots under module-specific folders
@@ -200,6 +200,7 @@ mvn test -Dsurefire.suiteXmlFiles=testng.xml
 ## 👨‍💻 Author
 
 **Akhil Sai Boddu**
+**bodduakhilsai@gmail.com**
 
 ---
 
