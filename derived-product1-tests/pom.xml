@@ -18,7 +18,7 @@
 		<!-- Dependency on framework -->
 		<dependency>
 			<groupId>com.nba.automation</groupId>
-			<artifactId>TestAutomationFramework</artifactId>
+			<artifactId>automation-framework</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
