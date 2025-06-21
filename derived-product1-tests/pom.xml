@@ -5,8 +5,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.veeva.automation</groupId>
-		<artifactId>Assessment</artifactId>
+		<groupId>com.nba.automation</groupId>
+	<artifactId>TestAutomationFramework</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
@@ -17,8 +17,8 @@
 	<dependencies>
 		<!-- Dependency on framework -->
 		<dependency>
-			<groupId>com.veeva.automation</groupId>
-			<artifactId>automation-framework</artifactId>
+			<groupId>com.nba.automation</groupId>
+	<artifactId>TestAutomationFramework</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
