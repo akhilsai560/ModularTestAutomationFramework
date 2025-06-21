@@ -15,7 +15,7 @@ All modules share a common, reusable library: `automation-framework`.
 ## 🧱 Module Structure
 
 ```bash
-Assessment/  
+ModularTestAutomationFramework/  
 ├── automation-framework/       # Common reusable components
 │   ├── config/                 # ConfigManager for reading configs
 │   ├── driver/                 # DriverManager using ThreadLocal
