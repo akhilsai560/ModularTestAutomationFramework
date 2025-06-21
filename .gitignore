@@ -5,7 +5,7 @@
 /**/test-output-thread
 
 # Reports and screenshots
-/reports/
+/**/reports/
 /**/screenshots/
 
 # IntelliJ or Eclipse files

@@ -1,4 +1,4 @@
-@cp
+@nba @cp
 Feature: Capture Jackets data from Shop Men's section
 
   @cp1

@@ -10,9 +10,11 @@ import automationframework.utils.DriverUtils;
 public class HomePageWarriors {
 
 	private WebDriver driver;
+	private DriverUtils driverUtils;
 
-	public HomePageWarriors(WebDriver driver) {
+	public HomePageWarriors(WebDriver driver, DriverUtils driverUtils) {
 		this.driver = driver;
+		this.driverUtils = driverUtils;
 		PageFactory.initElements(driver, this);
 	}
 
@@ -32,23 +34,23 @@ public class HomePageWarriors {
 	private WebElement newsAndFeatures;
 
 	public void clickShopMenu() {
-		DriverUtils.click(shop_menu);
+		driverUtils.click(shop_menu);
 	}
 
 	public void clickMensFromShopMenu() {
-		DriverUtils.waitUntilVisible(shop_menu);
-		DriverUtils.hoverElement(shop_menu);
-		DriverUtils.click(shopMenu_mens);
+		driverUtils.waitUntilVisible(shop_menu);
+		driverUtils.hoverElement(driver, shop_menu);
+		driverUtils.click(shopMenu_mens);
 	}
 
 	public void closeHomePageDialog() {
-		DriverUtils.click(x_btn);
+		driverUtils.click(x_btn);
 	}
 
 	public void clickOnNewsAndFeatures() {
-		DriverUtils.waitUntilVisible(menuDots);
-		DriverUtils.hoverElement(menuDots);
-		DriverUtils.waitUntilVisible(newsAndFeatures);
-		DriverUtils.click(newsAndFeatures);
+		driverUtils.waitUntilVisible(menuDots);
+		driverUtils.hoverElement(driver, menuDots);
+		driverUtils.waitUntilVisible(newsAndFeatures);
+		driverUtils.click(newsAndFeatures);
 	}
 }

@@ -7,11 +7,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class NewsAndFeaturesPage {
-	private WebDriver driver;
+import automationframework.utils.DriverUtils;
 
-	public NewsAndFeaturesPage(WebDriver driver) {
+public class NewsAndFeaturesPage {
+	private final WebDriver driver;
+	private DriverUtils driverUtils;
+
+	public NewsAndFeaturesPage(WebDriver driver, DriverUtils driverUtils) {
 		this.driver = driver;
+		this.driverUtils = driverUtils;
 		PageFactory.initElements(driver, this);
 	}
 

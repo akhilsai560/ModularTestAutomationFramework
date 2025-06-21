@@ -6,13 +6,14 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import automationframework.base.BaseClass;
 import automationframework.config.ConfigManager;
+import automationframework.context.TestContext;
 
 /**
  * DriverUtils provides a set of reusable utility methods to interact with web
@@ -20,20 +21,20 @@ import automationframework.config.ConfigManager;
  * <p>
  * It wraps WebDriverWait and ExpectedConditions to avoid flaky test behavior.
  */
-public class DriverUtils extends BaseClass {
+public class DriverUtils {
 
-	/** WebDriver instance from DriverManager */
+	private WebDriverWait wait;
 
-	/** WebDriverWait instance with duration from config (explicitWait) */
-	private static WebDriverWait wait = new WebDriverWait(getDriver(),
-			Duration.ofSeconds(ConfigManager.getInt("explicitWait")));
+	public DriverUtils(TestContext context) {
+		wait = new WebDriverWait(context.getDriver(), Duration.ofSeconds(ConfigManager.getInt("explicitWait")));
+	}
 
 	/**
 	 * Returns the current WebDriverWait instance.
 	 * 
 	 * @return WebDriverWait object for fluent waiting operations
 	 */
-	public static WebDriverWait getWait() {
+	public WebDriverWait getWait() {
 		return wait;
 	}
 
@@ -42,7 +43,7 @@ public class DriverUtils extends BaseClass {
 	 * 
 	 * @param element WebElement to be clicked
 	 */
-	public static void click(WebElement element) {
+	public void click(WebElement element) {
 		waitUntilClickable(element).click();
 	}
 
@@ -52,7 +53,7 @@ public class DriverUtils extends BaseClass {
 	 * @param element WebElement input field
 	 * @param text    Text to enter
 	 */
-	public static void sendKeys(WebElement element, String text) {
+	public void sendKeys(WebElement element, String text) {
 		waitUntilVisible(element).clear();
 		element.sendKeys(text);
 	}
@@ -63,7 +64,7 @@ public class DriverUtils extends BaseClass {
 	 * @param element WebElement to extract text from
 	 * @return Visible text content of the element
 	 */
-	public static String getText(WebElement element) {
+	public String getText(WebElement element) {
 		waitUntilVisible(element);
 		return element.getText();
 	}
@@ -74,7 +75,7 @@ public class DriverUtils extends BaseClass {
 	 * @param element WebElement to wait for
 	 * @return The same WebElement once it becomes visible
 	 */
-	public static WebElement waitUntilVisible(WebElement element) {
+	public WebElement waitUntilVisible(WebElement element) {
 		return wait.until(ExpectedConditions.visibilityOf(element));
 	}
 
@@ -84,7 +85,7 @@ public class DriverUtils extends BaseClass {
 	 * @param locator By locator to identify the element
 	 * @return WebElement once visible
 	 */
-	public static WebElement waitUntilVisible(By locator) {
+	public WebElement waitUntilVisible(By locator) {
 		return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 	}
 
@@ -94,7 +95,7 @@ public class DriverUtils extends BaseClass {
 	 * @param element WebElement to be clicked
 	 * @return WebElement once it's clickable
 	 */
-	public static WebElement waitUntilClickable(WebElement element) {
+	public WebElement waitUntilClickable(WebElement element) {
 		return wait.until(ExpectedConditions.elementToBeClickable(element));
 	}
 
@@ -105,7 +106,7 @@ public class DriverUtils extends BaseClass {
 	 * @param locator By locator of the element
 	 * @return true if present within wait time; false otherwise
 	 */
-	public static boolean isElementPresent(By locator) {
+	public boolean isElementPresent(By locator) {
 		try {
 			wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 			return true;
@@ -119,8 +120,8 @@ public class DriverUtils extends BaseClass {
 	 * 
 	 * @param element WebElement to hover over
 	 */
-	public static void hoverElement(WebElement element) {
-		new Actions(getDriver()).moveToElement(element).perform();
+	public void hoverElement(WebDriver driver, WebElement element) {
+		new Actions(driver).moveToElement(element).perform();
 	}
 
 	/**
@@ -128,7 +129,7 @@ public class DriverUtils extends BaseClass {
 	 * 
 	 * @param seconds Duration to wait
 	 */
-	public static void waitForSeconds(int seconds) {
+	public void waitForSeconds(int seconds) {
 		try {
 			Thread.sleep(seconds * 1000L);
 		} catch (InterruptedException e) {
@@ -142,7 +143,7 @@ public class DriverUtils extends BaseClass {
 	 * @param elements List of WebElements
 	 * @return The same list after ensuring all elements are visible
 	 */
-	public static List<WebElement> waitUntilVisibilityOfElements(List<WebElement> elements) {
+	public List<WebElement> waitUntilVisibilityOfElements(List<WebElement> elements) {
 		wait.until(ExpectedConditions.visibilityOfAllElements(elements));
 		return elements;
 	}
@@ -152,16 +153,8 @@ public class DriverUtils extends BaseClass {
 	 * 
 	 * @param percentage Zoom percentage (e.g., 90, 100, 110)
 	 */
-	public static void setBrowserZoomTo(int percentage) {
-		((JavascriptExecutor) getDriver()).executeScript("document.body.style.zoom='" + percentage + "%';");
+	public void setBrowserZoomTo(WebDriver driver, int percentage) {
+		((JavascriptExecutor) driver).executeScript("document.body.style.zoom='" + percentage + "%';");
 	}
 
-	/**
-	 * Scrolls or moves the cursor to the given element using Actions class.
-	 * 
-	 * @param element WebElement to move to
-	 */
-	public static void moveToElement(WebElement element) {
-		new Actions(getDriver()).moveToElement(element).perform();
-	}
 }

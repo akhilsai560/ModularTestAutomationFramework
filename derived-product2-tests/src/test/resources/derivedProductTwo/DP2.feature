@@ -1,3 +1,4 @@
+@nba
 Feature: Detect Duplicate Footer Hyperlinks and Export to CSV
 
   @dp2

@@ -6,40 +6,46 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.JsonObject;
 
-import automationframework.base.BaseClass;
 import automationframework.config.ConfigManager;
+import automationframework.context.TestContext;
 import automationframework.utils.DriverUtils;
 import automationframework.utils.JsonUtils;
 import derivedProductOne.pages.SixersPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
-public class DerivedProductOneStepDefinition extends BaseClass {
+public class DerivedProductOneStepDefinition {
 
+	private TestContext context;
+	private SixersPage dp1Page;
+	private DriverUtils driverUtils;
 	private Logger log = LoggerFactory.getLogger(DerivedProductOneStepDefinition.class);
 
-	private SixersPage dp1Page = PageFactory.initElements(getDriver(), SixersPage.class);;
+	public DerivedProductOneStepDefinition(TestContext context) {
+		this.context = context;
+		this.driverUtils = new DriverUtils(context);
+	}
 
 	@Given("the user navigates to the DP1 home page {string}")
 	public void the_user_navigates_to_the_dp1_home_page(String dp1Url) {
 		String url = ConfigManager.get(dp1Url);
-		getDriver().get(url);
+		context.getDriver().get(url);
 		url = "<a href=\"" + url + "\"> URL </a>";
-		getReport().addInfoLogging("Navigated to DP1 Home page: " + url);
-		getReport().captureScreenshotAndAddToreport(getDriver(), "DP1HomePage");
+		context.getReport().addInfoLogging("Navigated to DP1 Home page: " + url);
+		context.getReport().captureScreenshotAndAddToreport(context.getDriver(), "DP1HomePage");
 	}
 
 	@Then("count the number of slides present below the {string} menu")
 	public void count_the_number_of_slides_present_below_the_menu(String string) {
-		getReport().addPassLogging(
+		dp1Page = new SixersPage(context.getDriver(), driverUtils);
+		context.getReport().addPassLogging(
 				"Number of slides present below the Tickets Menu : " + String.valueOf(dp1Page.getSlides().size()));
-		getReport().captureScreenshotAndAddToreport(getDriver(), "SlidesCount");
+		context.getReport().captureScreenshotAndAddToreport(context.getDriver(), "SlidesCount");
 	}
 
 	@Then("compare the title of all slides with title from input data")
@@ -72,7 +78,7 @@ public class DerivedProductOneStepDefinition extends BaseClass {
 			}
 
 			table.append("</table>");
-			getReport().addInfoLogging(table.toString());
+			context.getReport().addInfoLogging(table.toString());
 
 		} catch (
 
@@ -91,11 +97,11 @@ public class DerivedProductOneStepDefinition extends BaseClass {
 		for (WebElement slide : slides) {
 
 			// Wait until the slide becomes active
-			DriverUtils.getWait().until(d -> slide.getAttribute("aria-selected").equals("true"));
+			driverUtils.getWait().until(d -> slide.getAttribute("aria-selected").equals("true"));
 			long startTime = System.currentTimeMillis();
 
 			// Wait until the slide is no longer active
-			DriverUtils.getWait().until(d -> slide.getAttribute("aria-selected").equals("false"));
+			driverUtils.getWait().until(d -> slide.getAttribute("aria-selected").equals("false"));
 			long endTime = System.currentTimeMillis();
 
 			long time = (endTime - startTime) / 1000; // Return in second
@@ -103,7 +109,7 @@ public class DerivedProductOneStepDefinition extends BaseClass {
 			slideTimes.add(time);
 		}
 		double avgTime = slideTimes.stream().mapToLong(Long::longValue).average().orElse(0);
-		getReport().addInfoLogging("Each slide is playing for approximately " + avgTime + " seconds");
+		context.getReport().addInfoLogging("Each slide is playing for approximately " + avgTime + " seconds");
 
 	}
 

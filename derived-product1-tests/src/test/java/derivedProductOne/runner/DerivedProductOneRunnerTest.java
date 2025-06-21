@@ -2,7 +2,6 @@ package derivedProductOne.runner;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import io.cucumber.testng.AbstractTestNGCucumberTests;
@@ -17,7 +16,7 @@ public class DerivedProductOneRunnerTest extends AbstractTestNGCucumberTests {
 
 	@BeforeClass(alwaysRun = true)
 	@Parameters("cucumber.filter.tags")
-	public void setTags(@Optional("@dp1") String tags) {
+	public void setTags(String tags) {
 		System.setProperty("cucumber.filter.tags", tags);
 	}
 

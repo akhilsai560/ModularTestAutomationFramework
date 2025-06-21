@@ -1,3 +1,4 @@
+@nba
 Feature: Validate slide titles and playback durations below Tickets menu on DP1 site
 
   @dp1
